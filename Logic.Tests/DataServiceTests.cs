@@ -11,6 +11,8 @@ namespace Logic.Tests
     public class DataServiceTests
     {
         private DataService ds;
+        private int negVal = -5;
+        private double doubleVal = 1.2;
 
         [SetUp]
         public void SetCapacity()
@@ -83,6 +85,27 @@ namespace Logic.Tests
 
             //Assert
             Assert.That(max, Is.EqualTo(3));
+        }
+
+       
+        //For exceptions
+
+        [Test]
+        public void Ctor_When_pass_negative_value_Then_thow_exception()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new DataService(negVal));
+        }
+
+        [Test]
+        public void GetElementAt_When_pass_negative_value_Then_thow_exception()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => ds.GetElementAt(negVal));
+        }
+
+        [Test]
+        public void RemoveAt_When_pass_negative_value_Then_thow_exception()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => ds.RemoveAt(negVal));
         }
     }
 }
