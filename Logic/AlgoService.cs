@@ -23,6 +23,9 @@ namespace Logic
         public double Function(int a, double b, int c, double d)
         {
             MethodsCalledCount++;
+            if(b < 0)
+                throw new InvalidOperationException("Second param can't be negative.");
+
             var result = Math.Pow(d, 3) + a * c - Math.PI * Math.Sqrt(b);
             return result;
         }

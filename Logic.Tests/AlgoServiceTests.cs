@@ -32,7 +32,6 @@ namespace Logic.Tests
 
             ////Act
             int x = algo.DoubleSum(list);
-            int y = algo.DoubleSum(list);
 
             //Assert
             Assert.That(x, Is.EqualTo(ans));
@@ -96,7 +95,7 @@ namespace Logic.Tests
 
         [Test]
         [TestCase(3)]
-        [TestCase(12)]
+        [TestCase(-12)]
         public void Sqr_When_given_value_Then_returns_square_of_value(int number)
         {
             //Act
@@ -105,6 +104,84 @@ namespace Logic.Tests
 
             //Assert
             Assert.That(sqr, Is.EqualTo(ans));
+        }
+
+        //Param list is empty
+
+        [Test]
+        public void DoubleSum_When_pass_empty_list_Then_returns_0()
+        {
+            //Arrange
+            var list = new List<int>();
+
+            ////Act
+            int x = algo.DoubleSum(list);
+
+            //Assert
+            Assert.That(x, Is.EqualTo(0));
+        }
+
+        //For exceptions
+
+        [Test]
+        public void MinValue_When_pass_empty_list_Then_returns_0()
+        {
+            //Arrange
+            var list = new List<int>();
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => algo.MinValue(list));
+        }
+
+        [Test]
+        public void GetAverage_When_pass_empty_list_Then_returns_0()
+        {
+            //Arrange
+            var list = new List<int>();
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => algo.GetAverage(list));
+        }
+
+        [Test]
+        public void DoubleSum_When_pass_null_Then_thow_exception()
+        {
+            List<int> nullList = null;
+
+            Assert.Throws<ArgumentNullException>(() => algo.DoubleSum(nullList));
+        }
+
+        [Test]
+        public void MinValue_When_pass_null_Then_thow_exception()
+        {
+            List<int> nullList = null;
+
+            Assert.Throws<ArgumentNullException>(() => algo.MinValue(nullList));
+        }
+
+        [Test]
+        public void GetAverage_When_pass_null_Then_thow_exception()
+        {
+            List<int> nullList = null;
+
+            Assert.Throws<ArgumentNullException>(() => algo.GetAverage(nullList));
+        }
+
+        [Test]
+        public void Function_second_param_negative_Then_thow_exception()
+        {
+            Assert.Throws<InvalidOperationException>(() => algo.Function(3, -4.5, 2, 1));
+        }
+
+
+
+
+        public static bool IsNullOrEmpty(IEnumerable<int> enumerable)
+        {
+            if (enumerable == null)
+                return true;
+
+            return !enumerable.Any();
         }
     }
 }
