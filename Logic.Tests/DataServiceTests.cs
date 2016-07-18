@@ -42,6 +42,20 @@ namespace Logic.Tests
         }
 
         [Test]
+        public void ItemsCount_When_capacity_0_and_add_item_Then_increases_ItemsCount()
+        {
+            var dds = new DataService(0);
+            //Act
+            dds.AddItem(2);
+            dds.AddItem(3);
+            dds.AddItem(5);
+            dds.AddItem(3);
+
+            //Assert
+            Assert.That(dds.ItemsCount, Is.EqualTo(4));
+        }
+
+        [Test]
         public void AddItem_When_given_param_Then_add_to_list()
         {
             //Act
