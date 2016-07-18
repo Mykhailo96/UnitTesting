@@ -65,6 +65,19 @@ namespace Logic
             return _algoService.Sqr(data);
         }
 
+        public double SqrGetElementAt(int a)
+        {
+            if (IsNullOrEmpty(_dataService.GetAllData()))
+            {
+                throw new InvalidOperationException("We have no data to process");
+            }
+
+            var elem = _dataService.GetElementAt(a);
+
+            return _algoService.Sqr(elem);
+        }
+
+
         public static bool IsNullOrEmpty(IEnumerable<int> enumerable)
         {
             if (enumerable == null)

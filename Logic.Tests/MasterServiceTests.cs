@@ -74,6 +74,18 @@ namespace Logic.Tests
             Assert.That(mSqr, Is.EqualTo(25));
         }
 
+        [Test]
+        public void SqrGetElementAt_When_given_number_Then_returns_sqr_of_element_on_position_number()
+        {
+            //Act
+            A.CallTo(() => dataService.GetAllData()).Returns(new List<int> { 2, 3, 4 });
+            A.CallTo(() => dataService.GetElementAt(A<int>._)).Returns(3);
+            A.CallTo(() => algoService.Sqr(A<int>._)).Returns(49);
+
+            //Assert
+            Assert.That(masterService.SqrGetElementAt(2), Is.EqualTo(49));
+        }
+
         //For exceptioins
 
         [Test]
@@ -114,6 +126,16 @@ namespace Logic.Tests
 
             //Assert
             Assert.Throws(typeof(InvalidOperationException), () => masterService.GetMinSquare());
+        }
+
+        [Test]
+        public void SqrGetElementAt_When_DataService_does_not_have_any_data_Then_throws_exception()
+        {
+            //Act
+            A.CallTo(() => dataService.GetAllData()).Returns(null);
+
+            //Assert
+            Assert.Throws(typeof(InvalidOperationException), () => masterService.SqrGetElementAt(A<int>._));
         }
     }
 }

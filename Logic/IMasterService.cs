@@ -8,5 +8,6 @@ namespace Logic
 
         //////////////////////
         double GetMinSquare();
+        double SqrGetElementAt(int a);
     }
 }
