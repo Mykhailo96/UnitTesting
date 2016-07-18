@@ -11,42 +11,67 @@ namespace Logic.Tests
     [TestFixture]
    public  class AlgoServiceTests
     {
-        [Test]
-        public void DoubleSum_When_given_a_and_b_Then_returns_2a_plus_2b()
+        private AlgoService algo;
+
+        [SetUp]
+        public void SetUp()
         {
             //Arrange
-            AlgoService algo = new AlgoService();
-            var list = new List<int> { 2, 3 };
+            algo = new AlgoService();
+        }
 
-            //Act
+        [Test]
+        [TestCase("2,3")]
+        [TestCase("4,5,6")]
+        public void DoubleSum_When_given_a_and_b_Then_returns_2a_plus_2b(string str)
+        {
+            //Arrange
+            var list = str.Split(',').Select(int.Parse).ToList();
+
+            var ans = list.Sum(i => i * 2);
+
+            ////Act
             int x = algo.DoubleSum(list);
             int y = algo.DoubleSum(list);
 
             //Assert
-            Assert.That(x, Is.EqualTo(10));
-            Assert.That(algo.MethodsCalledCount, Is.EqualTo(2));
+            Assert.That(x, Is.EqualTo(ans));
         }
 
         [Test]
-        public void MinValue_When_given_a_and_b_Then_returns_b_if_a_bigger_then_b_otherwise_returns_a()
+        [TestCase(2)]
+        [TestCase(5)]
+        public void MethodsCalledCount_When_any_method_called_Then_gives_numbers_of_calls(int calls)
+        {
+            //Act
+            for (int i = 0; i < calls; i++)
+            {
+                algo.Sqr(2);
+            }
+
+            //Assert
+            Assert.That(algo.MethodsCalledCount, Is.EqualTo(calls));
+        }
+
+        [Test]
+        [TestCase("2,3")]
+        [TestCase("4,5,6")]
+        public void MinValue_When_given_a_and_b_Then_returns_b_if_a_bigger_then_b_otherwise_returns_a(string str)
         {
             //Arrange
-            AlgoService algo = new AlgoService();
-            var list = new List<int> { 4, 2, 3 };
+            var list = str.Split(',').Select(int.Parse).ToList();
+            var ans = list.Min();
 
             //Act
             int min = algo.MinValue(list);
 
             //Assert
-            Assert.That(min, Is.EqualTo(2));
+            Assert.That(min, Is.EqualTo(ans));
         }
 
         [Test]
         public void Function_When_given_4_numbers_Then_returns_num4num4num4_plus_num1num3_minus_PiSqrtnum2()
         {
-            //Arrange
-            AlgoService algo = new AlgoService();
-
             //Act
             double num = algo.Function(3, 4.5, 2, 1);
 
@@ -55,30 +80,31 @@ namespace Logic.Tests
         }
 
         [Test]
-        public void GetAverage_When_given_list_Then_returns_average_value_from_list()
+        [TestCase("12,3,21,4", ExpectedResult = 10)]
+        [TestCase("6,17,7,16", ExpectedResult = 11.5)]
+        public double GetAverage_When_given_list_Then_returns_average_value_from_list(string str)
         {
             //Arrange
-            var algo = new AlgoService();
-            var list = new List<int> { 4, 15, 11 };
+            var list = str.Split(',').Select(int.Parse).ToList();
 
             //Act
             var aver = algo.GetAverage(list);
 
             //Assert
-            Assert.That(aver, Is.EqualTo(10));
+            return aver;
         }
 
         [Test]
-        public void Sqr_When_given_value_Then_returns_square_of_value()
+        [TestCase(3)]
+        [TestCase(12)]
+        public void Sqr_When_given_value_Then_returns_square_of_value(int number)
         {
-            //Arrange
-            var algo = new AlgoService();
-
             //Act
-            var sqr = algo.Sqr(11);
+            var sqr = algo.Sqr(number);
+            var ans = Math.Pow(number, 2);
 
             //Assert
-            Assert.That(sqr, Is.EqualTo(121));
+            Assert.That(sqr, Is.EqualTo(ans));
         }
     }
 }
