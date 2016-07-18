@@ -12,7 +12,6 @@ namespace Logic.Tests
     {
         private DataService ds;
         private int negVal = -5;
-        private double doubleVal = 1.2;
 
         [SetUp]
         public void SetCapacity()
@@ -21,6 +20,25 @@ namespace Logic.Tests
             ds = new DataService(5);
             ds.AddItem(2);
             ds.AddItem(3);
+        }
+
+        [TearDown]
+        public void Dispose()
+        {
+            ds.ClearAll();
+        }
+
+        [Test]
+        public void ItemsCount_When_increase_capacity_Then_increases_ItemsCount()
+        {
+            //Act
+            ds.AddItem(2);
+            ds.AddItem(3);
+            ds.AddItem(2);
+            ds.AddItem(3);
+
+            //Assert
+            Assert.That(ds.ItemsCount, Is.EqualTo(6));
         }
 
         [Test]
