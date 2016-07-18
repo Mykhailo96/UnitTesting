@@ -5,5 +5,8 @@ namespace Logic
         int GetDoubleSum();
         double GetAverage();
         double GetMaxSquare();
+
+        //////////////////////
+        double GetMinSquare();
     }
 }

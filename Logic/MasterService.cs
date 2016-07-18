@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Logic
@@ -17,11 +18,12 @@ namespace Logic
 
         public int GetDoubleSum()
         {
-            var data = _dataService.GetAllData();
-            if (data == null || !data.Any())
+            if (IsNullOrEmpty(_dataService.GetAllData()))
             {
                 throw new InvalidOperationException("We have no data to process");
             }
+
+            var data = _dataService.GetAllData();
 
             return _algoService.DoubleSum(data);;
         }
@@ -30,14 +32,45 @@ namespace Logic
 
         public double GetAverage()
         {
+            if (IsNullOrEmpty(_dataService.GetAllData()))
+            {
+                throw new InvalidOperationException("We have no data to process");
+            }
+
             var data = _dataService.GetAllData();
+
             return _algoService.GetAverage(data);
         }
 
         public double GetMaxSquare()
         {
+            if (IsNullOrEmpty(_dataService.GetAllData()))
+            {
+                throw new InvalidOperationException("We have no data to process");
+            }
+
             var data = _dataService.GetMax();
             return _algoService.Sqr(data);
+        }
+
+
+        /////////////////////////////////////
+        public double GetMinSquare()
+        {
+            if (IsNullOrEmpty(_dataService.GetAllData()))
+            {
+                throw new InvalidOperationException("We have no data to process");
+            }
+            var data = _algoService.MinValue(_dataService.GetAllData());
+            return _algoService.Sqr(data);
+        }
+
+        public static bool IsNullOrEmpty(IEnumerable<int> enumerable)
+        {
+            if (enumerable == null)
+                return true;
+
+            return !enumerable.Any();
         }
     }
 }
